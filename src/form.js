@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {View, TextInput} from 'react-native';
-import {Button, Paragraph} from 'react-native-paper';
+import {View} from 'react-native';
+import {TextInput, Button, Paragraph} from 'react-native-paper';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 function Form() {
-  const [pan, setPan] = React.useState(null);
-  const [gst, setGst] = React.useState();
+  const [pan, setPan] = React.useState('');
+  const [gst, setGst] = React.useState('');
   const [imageSource, setImageSource] = React.useState('');
+  const [inputMessage, setInputMessage] = useState('');
 
   const message = {
     panMissing: 'Please enter PAN',
@@ -76,18 +77,35 @@ function Form() {
     }
   };
 
+  function isNumeric(num) {
+    return !isNaN(num);
+  }
+
+  const setPanNumber = text => {
+    if (pan.length === 4) {
+      isNumeric(text)
+        ? setInputMessage('It is a Mobile number')
+        : setInputMessage('It is a PAN number');
+      setPan(text);
+    } else {
+      setPan(text);
+    }
+  };
+
+  console.log('length of input', pan.length);
+
   return (
     <View style={{marginTop: 200, width: '70%', margin: 60}}>
-      {/* {console.log(pan)} */}
-      <Paragraph></Paragraph>
+      {console.log(pan)}
+      <Paragraph>{inputMessage}</Paragraph>
       <TextInput
-        placeholder="PAN Or Phone Number"
-        // value={pan}
-        onChangeText={e => console.log(typeof(e))}
+        label="PAN Or Phone Number"
+        value={pan}
+        onChangeText={text => setPanNumber(text)}
       />
 
       <TextInput
-        placeholder="GST"
+        label="GST"
         value={gst}
         onChangeText={text => setGst(text)}
         style={{marginTop: 20}}
