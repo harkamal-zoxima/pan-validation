@@ -9,11 +9,13 @@ import {
   View,
 } from 'react-native';
 import Form from './src/form'
+import ProgressDashboard from './src/progressBar';
 
 const App = () => {
   return (
     <SafeAreaView >
       <Form />
+      <ProgressDashboard />
     </SafeAreaView>
   );
 };

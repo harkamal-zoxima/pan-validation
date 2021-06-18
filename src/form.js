@@ -82,7 +82,12 @@ function Form() {
   }
 
   const setPanNumber = text => {
-    if (pan.length === 4) {
+    if (pan.length === 0) {
+      !isNumeric(text)
+        ? setInputMessage('It is a PAN')
+        : setInputMessage('');
+      setPan(text);
+    }else if (pan.length === 4) {
       isNumeric(text)
         ? setInputMessage('It is a Mobile number')
         : setInputMessage('It is a PAN number');
@@ -92,10 +97,8 @@ function Form() {
     }
   };
 
-  console.log('length of input', pan.length);
-
   return (
-    <View style={{marginTop: 200, width: '70%', margin: 60}}>
+    <View style={{marginTop: 40, width: '70%', margin: 60}}>
       {console.log(pan)}
       <Paragraph>{inputMessage}</Paragraph>
       <TextInput
